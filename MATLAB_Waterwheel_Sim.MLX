@@ -14,6 +14,7 @@ time = linspace(0, 100, 1000); % seconds
 water_density = 1000; % kg/m^3
 radius_of_waterwheel_inches = 6;
 radius_of_waterwheel_meters = radius_of_waterwheel_inches/39.37;
+adjusted_flow = 0;
 
 % Output Variables
 RPM_waterwheel = zeros(size(time));
@@ -23,18 +24,18 @@ waterwheel_inertia = 0.5 * water_density * pi * radius_of_waterwheel_meters^4; %
 % Simulation loop
 for i = 1:length(time)
     
-    % Flow rate adjustments
+    % Flow rate start adjustments
     if i <= 10
-        flow_rate_in = flow_rate_in + 1;
+        adjusted_flow = ((i-1)/10) * flow_rate_in;
     else
-        break
+        adjusted_flow = flow_rate_in;
     end
 
 
     % Torque equations: force (newtons) 
     % = 0.5 * density * pi * (inflow diameter/2)^2 * flow rate^2
     % Torque = force * radius of waterwheel
-    force = 0.5 * water_density * pi * ((diameter_of_inflow_pipe_meters / 2)^2) * (flow_rate_in)^2;
+    force = 0.5 * water_density * pi * ((diameter_of_inflow_pipe_meters / 2)^2) * (adjusted_flow)^2;
     Torque_waterwheel(i) = force * radius_of_waterwheel_meters;
 
     % RPM equations: angular acceleration (rad/s^2)
