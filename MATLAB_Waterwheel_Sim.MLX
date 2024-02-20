@@ -1,0 +1,61 @@
+% Capstone initial flow simulations
+% Created: Feb 20th, 2024
+%
+%
+
+% Input Variables
+%length_of_pipe = 0.0;
+flow_rate_in = 20; % L/s
+diameter_of_inflow_pipe_inches = 6;
+diameter_of_inflow_pipe_meters = diameter_of_inflow_pipe_inches/39.37;
+
+% External Variables
+time = linspace(0, 100, 1000); % seconds
+water_density = 1000; % kg/m^3
+radius_of_waterwheel_inches = 6;
+radius_of_waterwheel_meters = radius_of_waterwheel_inches/39.37;
+
+% Output Variables
+RPM_waterwheel = zeros(size(time));
+Torque_waterwheel = zeros(size(time)); % Assume 100% efficiency
+waterwheel_inertia = 0.5 * water_density * pi * radius_of_waterwheel_meters^4; % kg*m^2
+
+% Simulation loop
+for i = 1:length(time)
+    
+    % Flow rate adjustments
+    if i <= 10
+        flow_rate_in = flow_rate_in + 1;
+    else
+        break
+    end
+
+
+    % Torque equations: force (newtons) 
+    % = 0.5 * density * pi * (inflow diameter/2)^2 * flow rate^2
+    % Torque = force * radius of waterwheel
+    force = 0.5 * water_density * pi * ((diameter_of_inflow_pipe_meters / 2)^2) * (flow_rate_in)^2;
+    Torque_waterwheel(i) = force * radius_of_waterwheel_meters;
+
+    % RPM equations: angular acceleration (rad/s^2)
+    % = torque of waterwheel / inertia of water wheel
+    % RPM = ang. acc. * (60/ (2 * pi))
+    angular_acceleration = Torque_waterwheel(i) / waterwheel_inertia;
+    RPM_waterwheel(i) = angular_acceleration * (60 / (2 * pi));
+
+
+end
+
+% Plot
+figure;
+subplot(2,1,1);
+plot(time,Torque_waterwheel);
+title('Torque vs. Time')
+xlabel('Time (s)')
+ylabel('Torque')
+
+subplot(2,1,2);
+plot(time,RPM_waterwheel);
+title('RPM vs. Time')
+xlabel('Time (s)')
+ylabel('RPM')
