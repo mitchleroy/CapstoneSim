@@ -8,9 +8,8 @@
 %
 flow_rate_in = 20; % L/s
 diameter_of_inflow_pipe_inches = 6;
-diameter_of_inflow_pipe_meters = diameter_of_inflow_pipe_inches/39.37;
 radius_of_waterwheel_inches = 9;
-radius_of_waterwheel_meters = radius_of_waterwheel_inches/39.37;
+mode = 3; % Modes: 1 = flow starts @ zero; 2 = constant flow; 3 = full flow decreasing to zero;
 %
 %
 %-----------------------------------------------------------------------
@@ -24,6 +23,10 @@ time = linspace(0, 100, 1000); % seconds
 water_density = 1000; % kg/m^3
 adjusted_flow = 0;
 waterwheel_inertia = 0.5 * water_density * pi * radius_of_waterwheel_meters^4; % kg*m^2
+diameter_of_inflow_pipe_meters = diameter_of_inflow_pipe_inches/39.37;
+area_of_inflow_pipe_inches = ((diameter_of_inflow_pipe_inches / 2)^2) * pi;
+area_of_inflow_pipe_meters = ((diameter_of_inflow_pipe_meters / 2)^2) * pi;
+radius_of_waterwheel_meters = radius_of_waterwheel_inches/39.37;
 %
 %
 % ------------------------------------------------------------------------
@@ -44,12 +47,29 @@ torqueOutput = zeros(size(time));
 % Simulation loop
 for i = 1:length(time)
     
-    % Flow rate start adjustments
-    if i <= 10
-        adjusted_flow = ((i-1)/10) * flow_rate_in;
-    else
+    if mode == 1
+        if i <= 100
+            adjusted_flow = ((i-1)/10) * flow_rate_in;
+        else
+            adjusted_flow = flow_rate_in;
+        end
+
+    elseif mode == 2
         adjusted_flow = flow_rate_in;
+
+    elseif mode == 3
+        if i <= 100
+            adjusted_flow = flow_rate_in;
+        else
+            if adjusted_flow == 0
+                adjusted_flow = 0;
+            else
+                adjusted_flow = adjusted_flow - 1;
+            end
+        end
     end
+    
+    
 
 
     % Torque equations: force (newtons) 
@@ -88,6 +108,3 @@ plot(time,RPM_waterwheel);
 title('RPM vs. Time')
 xlabel('Time (s)')
 ylabel('RPM')
-
-
-
