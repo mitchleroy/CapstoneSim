@@ -36,8 +36,8 @@ for i = 1:length(time)
     % Torque equations: force (newtons) 
     % = 0.5 * density * pi * (inflow diameter/2)^2 * flow rate^2
     % Torque = force * radius of waterwheel
-    %force = 0.5 * water_density * pi * ((diameter_of_inflow_pipe_meters / 2)^2) * (adjusted_flow)^2;
-    %Torque_waterwheel(i) = force * radius_of_waterwheel_meters;
+    force = 0.5 * water_density * pi * ((diameter_of_inflow_pipe_meters / 2)^2) * (adjusted_flow)^2;
+    Torque_waterwheel(i) = force * radius_of_waterwheel_meters;
 
     % RPM equations: angular acceleration (rad/s^2)
     % = torque of waterwheel / inertia of water wheel
@@ -69,4 +69,3 @@ plot(time,RPM_waterwheel);
 title('RPM vs. Time')
 xlabel('Time (s)')
 ylabel('RPM')
-
