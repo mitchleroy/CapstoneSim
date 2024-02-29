@@ -3,24 +3,43 @@
 %
 %
 
-% Input Variables
-%length_of_pipe = 0.0;
+% ---------------------------- Input Variables ------------------------
+%
+%
 flow_rate_in = 20; % L/s
 diameter_of_inflow_pipe_inches = 6;
 diameter_of_inflow_pipe_meters = diameter_of_inflow_pipe_inches/39.37;
-
-% External Variables
-time = linspace(0, 100, 1000); % seconds
-water_density = 1000; % kg/m^3
 radius_of_waterwheel_inches = 9;
 radius_of_waterwheel_meters = radius_of_waterwheel_inches/39.37;
-adjusted_flow = 0;
+%
+%
+%-----------------------------------------------------------------------
 
-% Output Variables
+
+
+%---------------------------- External Variables ------------------------
+%
+%
+time = linspace(0, 100, 1000); % seconds
+water_density = 1000; % kg/m^3
+adjusted_flow = 0;
+waterwheel_inertia = 0.5 * water_density * pi * radius_of_waterwheel_meters^4; % kg*m^2
+%
+%
+% ------------------------------------------------------------------------
+
+
+
+% ---------------------------- Output Variables --------------------------
+%
+%
 RPM_waterwheel = zeros(size(time));
 Torque_waterwheel = zeros(size(time)); % Assume 100% efficiency
 torqueOutput = zeros(size(time));
-waterwheel_inertia = 0.5 * water_density * pi * radius_of_waterwheel_meters^4; % kg*m^2
+%
+%
+% ------------------------------------------------------------------------
+
 
 % Simulation loop
 for i = 1:length(time)
@@ -69,3 +88,6 @@ plot(time,RPM_waterwheel);
 title('RPM vs. Time')
 xlabel('Time (s)')
 ylabel('RPM')
+
+
+
