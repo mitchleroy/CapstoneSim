@@ -1,7 +1,7 @@
 import numpy as np
 #----------------------------------------------------------------
 #Input Vars
-flow_rate_in = 20 % L/s
+flow_rate_in = 20  #L/s
 diameter_of_inflow_pipe_inches = 6
 radius_of_waterwheel_inches = 9
 radius_of_waterwheel_meters = radius_of_waterwheel_inches/39.37
@@ -12,12 +12,12 @@ wheel_width_inches = 3
 #----------------------------------------------------------------
 #External Vars
 time = np.linspace(0, 250, 250)
-water_density = 1000 % kg/m^3
+water_density = 1000 #kg/m^3
 adjusted_flow = 0
-waterwheel_inertia = 0.5 * water_density * pi * radius_of_waterwheel_meters^4 % kg*m^2
+waterwheel_inertia = 0.5 * water_density * np.pi * radius_of_waterwheel_meters**4 #kg*m^2
 diameter_of_inflow_pipe_meters = diameter_of_inflow_pipe_inches/39.37
-area_of_inflow_pipe_inches = ((diameter_of_inflow_pipe_inches / 2)^2) * pi
-area_of_inflow_pipe_meters = ((diameter_of_inflow_pipe_meters / 2)^2) * pi
+area_of_inflow_pipe_inches = ((diameter_of_inflow_pipe_inches / 2)**2) * np.pi
+area_of_inflow_pipe_meters = ((diameter_of_inflow_pipe_meters / 2)**2) * np.pi
 radius_of_waterwheel_meters = radius_of_waterwheel_inches/39.37
 #----------------------------------------------------------------
 
@@ -32,6 +32,10 @@ Torque_Output = np.zeros(time.shape)
 #----------------------------------------------------------------
 #Flow hitting wheel
 r = diameter_of_inflow_pipe_inches/2
-x = np.linspace(0, r, r/(0.1))
+x = np.linspace(0, int(r), int(r)*10)
+cutoff_height = ((r*2)-wheel_width_inches)/2
 stop_x = r
+print(x)
+for i in x:
+    print("Term: " + str(i))
 #----------------------------------------------------------------
