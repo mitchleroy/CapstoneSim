@@ -1,27 +1,33 @@
 import numpy as np
 import math
-from scipy.integrate import simpson
 from Funcs import *
+from RPM import *
+#from RPM import *
 
+#----------------------------------------------------------------
+#Global declarations
+global time, r, velocityOfWaterIn, water_density, AUC, centerWaterwheelToHead
+#----------------------------------------------------------------
 
 #----------------------------------------------------------------
 #Input Vars
 #####AS OF 3/28/24 ALL INPUTS ARE IN METRIC (meters, litres, etc) --- USE inToMet() FUNCTION FOR EASY CONVERSION#####
-flow_rate_in = 20  #L/s
+velocityOfWaterIn = 20  #m^2/s
 diameter_of_inflow_pipe = 6
-radius_of_waterwheel= 9
+radius_of_waterwheel= 0.4
 wheel_width = 3
 blade_length = 8
 blade_width = 3
+centerWaterwheelToHead = 1
+momentOfInertia = 1
 #----------------------------------------------------------------
 
 
 #----------------------------------------------------------------
 #External Vars
 time = np.linspace(0, 250, 250)
-water_density = 1000 #kg/m^3
 adjusted_flow = 0
-waterwheel_inertia = 0.5 * water_density * np.pi * radius_of_waterwheel**4 #kg*m^2
+#waterwheel_inertia = 0.5 * water_density * np.pi * radius_of_waterwheel**4 #kg*m^2
 area_of_inflow_pipe = ((diameter_of_inflow_pipe / 2)**2) * np.pi
 #----------------------------------------------------------------
 
@@ -35,15 +41,15 @@ Torque_Output = np.zeros(time.shape)
 
 #----------------------------------------------------------------
 #Flow hitting wheel
-test1 = Atotal(2, 3, 0)
-print("Test1: ", test1)
-
 r = diameter_of_inflow_pipe / 2
 d = blade_width / 2
-print(blade_width)
-print(d)
-phi = 0.21
-print(areaHit(d, r, phi))
+phi = 0
+#print(areaHit(d, r, phi), "m^2 of blade being hit by water source")
+AUC = ((180-(2 * np.arccos(d/r)))/(360)) * np.pi * r**2 + (d * np.sqrt(r**2 - d**2)) - (2*phi)
+percentOfWaterHitting = ((((180-(2 * np.arccos(d/r)))/(360)) * np.pi * r**2 + (d * np.sqrt(r**2 - d**2)) - (2*phi)) / (np.pi * r**2)) * 100
+#print(percentOfWaterHitting, "% of water hitting blade")
 
-# (area hit / head area) * water velocity hitting wheel
 #----------------------------------------------------------------
+
+
+print("PRM of waterwheel:", calculateRPM(r, d, velocityOfWaterIn, AUC, centerWaterwheelToHead, momentOfInertia))
