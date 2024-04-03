@@ -13,10 +13,10 @@ global time, r, velocityOfWaterIn, water_density, AUC, centerWaterwheelToHead
 #----------------------------------------------------------------
 #Input Vars
 #####AS OF 3/28/24 ALL INPUTS ARE IN METRIC (meters, litres, etc) --- USE inToMet() FUNCTION FOR EASY CONVERSION#####
-velocityOfWaterIn = 2  #m^2/s
+velocityOfWaterIn = 2  #m/s
 diameter_of_inflow_pipe = 1
 radius_of_waterwheel= 0.9
-wheel_width = 3
+#wheel_width = 0.41
 blade_length = 0.11
 blade_width = 0.01
 centerWaterwheelToHead = 1
@@ -52,12 +52,12 @@ else:
 
 
 
-#print(areaHit(d, r, phi), "m^2 of blade being hit by water source")
-percentOfWaterHitting = (AUC / (np.pi * r**2)) * 100
+print(areaHit(d, r, phi), "m^2 of blade being hit by water source")
+#percentOfWaterHitting = (AUC / (np.pi * r**2)) * 100
 
 
 #----------------------------------------------------------------
 
 
-print("PRM of waterwheel:", calculateRPM(r, d, velocityOfWaterIn, AUC, centerWaterwheelToHead, momentOfInertia))
-print("Torque output of waterwheel:", calculateTorque(AUC, velocityOfWaterIn, centerWaterwheelToHead))
+print("PRM of waterwheel:", calculateRPM(r, d, velocityOfWaterIn, areaHit(d, r, phi), centerWaterwheelToHead, momentOfInertia))
+print("Torque output of waterwheel:", calculateTorque(areaHit(d, r, phi), velocityOfWaterIn, radius_of_waterwheel))
