@@ -1,27 +1,20 @@
 import numpy as np
-#----------------------------------------------------------------
-#Input Vars
-
-
-
-
 
 #----------------------------------------------------------------
+# How it works:
 
+'''
+T = F * C
+T = Torque output at center of water wheel
+F = Force 
+    Force = 1000 * AUC * (velocityOfWaterIn**2) * 9.81
 
-#----------------------------------------------------------------
-#External Vars
-time = np.linspace(0, 250, 1)
-waterDensity = 1000
-adjustedFlow = 0
-waterwheelInertia = 0.5 * water_density * pi * radius_of_waterwheel_meters^4
-diameterInflowPipeMeters = diameterInflowPipeInches/39.37
-#----------------------------------------------------------------
+C = Center of water wheel to head
 
+'''
 
-#----------------------------------------------------------------
-#Output Vars
-
-
-
-#----------------------------------------------------------------
+def calculateTorque(AUC, velocityOfWaterIn, centerWaterwheelToHead):
+    F = 1000 * AUC * (velocityOfWaterIn**2) * 9.81
+    C = centerWaterwheelToHead
+    tOut = F * C
+    return tOut
