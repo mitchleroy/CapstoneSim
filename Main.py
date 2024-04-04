@@ -67,20 +67,20 @@ print(AUC)
 
 print("Torque output of water velocities: ")
 for i in varyingVelocity:
-    print(f"{i} L/s: ", end="")
+    #print(f"{i} L/s: ", end="")
     yTorque = calculateTorque(AUC, i, radius_of_waterwheel)
-    print(yTorque, end="")
-    print(" N*m")
+    #print(yTorque, end="")
+    #print(" N*m")
     yT = np.append(yT, yTorque)
 
 
 print("RPM output of water velocities: ")
 for i in varyingVelocity:
-    print(f"{i} L/s: ", end="")
+    #print(f"{i} L/s: ", end="")
     yRPM = calculateRPM(r, d, i, AUC, centerWaterwheelToHead, momentOfInertia)
     yR = np.append(yR, yRPM)
-    print(yRPM, end="")
-    print(" RPM")
+    #print(yRPM, end="")
+    #print(" RPM")
     
 #----------------------------------------------------------------
 
