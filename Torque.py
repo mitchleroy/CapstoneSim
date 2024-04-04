@@ -13,8 +13,8 @@ C = Center of water wheel to head
 
 '''
 
-def calculateTorque(AUC, velocityOfWaterIn, radius):
+def calculateTorque(AUC, velocityOfWaterIn, centerWaterwheelToHead):
     F = 1000 * AUC * (velocityOfWaterIn**2)
-    C = radius
+    C = centerWaterwheelToHead
     tOut = F * C
     return tOut
