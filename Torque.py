@@ -7,7 +7,7 @@ import numpy as np
 T = F * C
 T = Torque output at center of water wheel
 F = Force 
-    Force = 1000 * AUC * (velocityOfWaterIn**2) * 9.81
+    Force = 1000 * Area under Curve * (velocityOfWaterIn**2)
 
 C = Center of water wheel to head
 

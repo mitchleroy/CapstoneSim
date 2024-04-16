@@ -41,7 +41,7 @@ import numpy as np
 
 
 '''
-def calculateRPM(r, d, velocityOfWaterIn, AUC, centerWaterwheelToHead, momentOfInertia):
+def calculateRPM(r, velocityOfWaterIn, AUC, centerWaterwheelToHead, momentOfInertia):
 #1
     flowRateQ = (np.pi * (r**2)) * velocityOfWaterIn
 
