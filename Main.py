@@ -13,7 +13,7 @@ global time, r, velocityOfWaterIn, water_density, AUC, centerWaterwheelToHead
 #####AS OF 3/28/24 ALL INPUTS ARE IN METRIC (meters, litres, g, etc) --- USE inToMet() FUNCTION FOR EASY CONVERSION#####
 #----------------------------------------------------------------
 #Input Vars
-velocityOfWaterIn = 22/1000  # L/s -> m/s
+velocityOfWaterIn = 22  # L/s
 diameter_of_inflow_pipe = inToMet(4.5) # 4.5 inches -> meters
 radius_of_waterwheel= inToMet(3) # 3 inches -> meters
 blade_length = inToMet(3) # 3 inches -> meters
@@ -32,6 +32,7 @@ varyingVelocity = np.round(varyingVelocity, 2)
 #waterwheel_inertia = 0.5 * water_density * np.pi * radius_of_waterwheel**4 #kg*m^2s
 area_of_inflow_pipe = ((diameter_of_inflow_pipe / 2)**2) * np.pi
 momentOfInertia = 0.5 * massWaterwheel * (radius_of_waterwheel**2)
+velocityOfWaterIn = velocityOfWaterIn / 1000
 #----------------------------------------------------------------
 
 
