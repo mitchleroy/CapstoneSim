@@ -20,7 +20,7 @@ blade_length = inToMet(3) # 3 inches -> meters
 blade_width = inToMet(1) # 1 inch -> meters
 centerWaterwheelToHead = inToMet(4.5) # 4.5 inches -> meters
 massWaterwheel = 7 # grams
-theta = 45 # degrees
+theta = 45 # degrees between blades
 #----------------------------------------------------------------
 
 #----------------------------------------------------------------
